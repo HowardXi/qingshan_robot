@@ -7,12 +7,21 @@
 # @File     : static.py
 
 from requests import get, post
-from query import base_url
+from query import jx3api_app, jx3api_share
 import json
 
 def query_saohua():
     endpoint = "/random"
-    request = get(base_url + endpoint)
+    request = get(jx3api_app + endpoint)
+    if request.status_code == 200:
+        data = request.json()["data"]
+        return data["text"]
+    else:
+        return request
+
+def flatterer_diary():
+    endpoint = "/random"
+    request = get(jx3api_share + endpoint)
     if request.status_code == 200:
         data = request.json()["data"]
         return data["text"]

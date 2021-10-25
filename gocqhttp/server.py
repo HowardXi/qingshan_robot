@@ -9,7 +9,7 @@ import websocket
 import json
 from settings import cfg
 from query.common_query import query_macro, query_heighten
-from query.static import query_saohua
+from query.static import query_saohua, flatterer_diary
 from gocqhttp.action.send_msg import send_group_msg
 from match.xinfa import xinfa_set, match_xinfa
 from loguru import logger
@@ -34,6 +34,10 @@ def on_message(ws, message):
 
     if op == "来句骚话":
         send_group_msg(msg["group_id"], query_saohua())
+
+    if op == "舔狗日记":
+        send_group_msg(msg["group_id"], flatterer_diary())
+
 
 def on_error(ws, error):
     print(error)

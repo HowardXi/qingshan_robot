@@ -7,13 +7,13 @@
 # @File     : common_query.py
 
 from requests import get, post
-from query import base_url
+from query import jx3api_app
 import json
 
 
 def query_macro(xinfa):
     endpoint = "/macro"
-    request = get(base_url + endpoint, data=json.dumps({"name": xinfa}))
+    request = get(jx3api_app + endpoint, data=json.dumps({"name": xinfa}))
     if request.status_code == 200:
         data =  request.json()["data"]
         return "奇穴方案: " + data["qixue"] +"\r\n宏:\r\n"+ data["macro"]
@@ -22,11 +22,20 @@ def query_macro(xinfa):
 
 def query_heighten(xinfa):
     endpoint = "/heighten"
-    request = get(base_url + endpoint, data=json.dumps({"name": xinfa}))
+    request = get(jx3api_app + endpoint, data=json.dumps({"name": xinfa}))
     if request.status_code == 200:
         data = request.json()["data"]
         return data["url"]
     else:
         return request
 
+def query_daily(server_name):
+    # TODO unfinished
+    endpoint = "/daily"
+    request = get(jx3api_app + endpoint, data=json.dumps({"name": server_name}))
+    if request.status_code == 200:
+        data = request.json()["data"]
+        return data["url"]
+    else:
+        return request
 

@@ -6,4 +6,5 @@
 # @Time     : 2021/10/25 11:09
 # @File     : __init__.py.py
 
-base_url = "https://www.jx3api.com/app"
+jx3api_app = "https://www.jx3api.com/app"
+jx3api_share = "https://www.jx3api.com/share"
