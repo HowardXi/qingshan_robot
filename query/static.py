@@ -7,7 +7,7 @@
 # @File     : static.py
 
 from requests import get, post
-from query import jx3api_app, jx3api_share
+from query import jx3api_app, jx3api_share, image_gufeng, image_erciyuan
 import json
 
 def query_saohua():
@@ -27,3 +27,7 @@ def flatterer_diary():
         return data["text"]
     else:
         return request
+
+def random_image(styly="gufeng"):
+    return image_gufeng
+
