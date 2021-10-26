@@ -1,7 +1,7 @@
 # coding=utf-8
 import requests
 
-import QQMusicAPI
+from music import QQMusicAPI
 
 
 class Singer(object):
@@ -11,7 +11,8 @@ class Singer(object):
         self.name = name
         self.title = title
 
-        self.url = 'https://y.qq.com/n/yqq/singer/{self.singer_mid}.html'.format(
+        self.url = 'https://y.qq.com/n/yqq/singer/{' \
+                   'self.singer_mid}.html'.format(
             **locals())
 
         self.hot_music = []
@@ -45,7 +46,9 @@ class Singer(object):
         for item in data.get('list'):
             music_data = item['musicData']
             song = QQMusicAPI.Song(song_mid=music_data['songmid'],
+                                   id=music_data["id"],
                                    name=music_data['songname'])
+            song.song_id = music_data["id"]
             song.singer = [
                 Singer(singer_mid=singer['mid'],
                        name=singer['name'])
@@ -54,7 +57,8 @@ class Singer(object):
             self.hot_music.append(song)
 
     def __repr__(self):
-        return '<Singer: name={self.name}, title={self.title}>'.format(**locals())
+        return '<Singer: name={self.name}, title={self.title}>'.format(
+            **locals())
 
     def __str__(self):
         return self.__repr__()

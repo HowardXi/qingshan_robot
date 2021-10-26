@@ -1,5 +1,5 @@
 # coding=utf-8
-from .pager import *
-from .qqmusic import *
-from .singer import *
-from .song import *
+from music.QQMusicAPI.pager import *
+from music.QQMusicAPI.qqmusic import *
+from music.QQMusicAPI.singer import *
+from music.QQMusicAPI.song import *

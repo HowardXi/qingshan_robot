@@ -1,5 +1,5 @@
 # coding=utf-8
-import QQMusicAPI
+from music import QQMusicAPI
 
 
 class QQMusic(object):

@@ -13,9 +13,10 @@ class MusicAPI(object):
         self.music_list = QQMusic.search(song_name)
         self._song = self.music_list.data[0]
         self.mid = self._song.song_mid
+        self.id = self._song.song_id
 
-
+def query_song_id(song_name):
+    return QQMusic.search(song_name).data[0].song_id
 
 if __name__ == '__main__':
-    song = MusicAPI("好运来")
-    print(song.mid)
+    print(query_song_id("好运来"))

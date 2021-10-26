@@ -4,7 +4,7 @@ import math
 
 import requests
 
-import QQMusicAPI
+from music import QQMusicAPI
 
 
 class BasePager(object):
@@ -41,7 +41,8 @@ class BasePager(object):
         return _cls(keyword=self.keyword, cursor_page=self.cursor_page - 1)
 
     def __repr__(self):
-        return '<{self.__class__.__name__}: keyword={self.keyword}, cursor_page={self.cursor_page},\
+        return '<{self.__class__.__name__}: keyword={self.keyword}, ' \
+               'cursor_page={self.cursor_page},\
  page_size={self.page_size}, total_num={self.total_num}>'.format(**locals())
 
     def __str__(self):
@@ -54,7 +55,6 @@ class SongSearchPager(BasePager):
     def extract(self):
         if not isinstance(self.keyword, str):
             raise ValueError
-
         url = 'https://c.y.qq.com/soso/fcgi-bin/client_search_cp'
         params = {
             'new_json': 1,
@@ -70,7 +70,7 @@ class SongSearchPager(BasePager):
         data_list = data['data']['song']['list']
 
         for item in data_list:
-            song = QQMusicAPI.Song(song_mid=item['mid'],
+            song = QQMusicAPI.Song(song_mid=item['mid'],id=item["id"],
                                    name=item['name'], title=item['title'])
             song.singer = [
                 QQMusicAPI.Singer(singer_mid=singer['mid'],
@@ -117,10 +117,10 @@ class SingerSongPager(BasePager):
 
         self.total_num = data.get('total')
         self.page_size = math.ceil(self.total_num / 30)
-
         for item in data.get('list'):
             music_data = item['musicData']
             song = QQMusicAPI.Song(song_mid=music_data['songmid'],
+                                   id=music_data["id"],
                                    name=music_data['songname'])
             song.singer = [
                 QQMusicAPI.Singer(singer_mid=singer['mid'],
@@ -148,3 +148,8 @@ class SingerListPager(BasePager):
     """ 歌手分页 """
     # TODO
     pass
+
+
+if __name__ == '__main__':
+    s = SongSearchPager("好运来")
+    # s.data[0].song_id

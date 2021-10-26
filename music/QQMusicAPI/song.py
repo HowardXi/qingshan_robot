@@ -5,25 +5,22 @@ import random
 
 import requests
 
-import QQMusicAPI
+from  music import QQMusicAPI
 
 
 class Song(object):
 
-    def __init__(self, song_mid, name=None, title=None, extract=False):
+    def __init__(self, song_mid, id, name=None, title=None, extract=False):
         self.song_mid = song_mid
 
         # 获取一个十位随机数
         self.guid = random.randint(1000000000, 9999999999)
         # 歌曲 song_id
-        self.song_id = None
+        self.song_id = id
         # 歌曲歌词
         self.lyric = SongLyric(self.song_mid)
-        # C400{}.m4a 好像是最低音质，这个以后再说
-        # 反正我糙耳朵听不出来……
         self.filename = 'C400{self.song_mid}.m4a'.format(**locals())
         # 歌名
-        # QQ 音乐在不同的页面显示不同的歌名……
         self.name = name
         self.extras_name = None
         self.title = title

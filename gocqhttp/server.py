@@ -13,6 +13,7 @@ from loguru import logger
 
 from gocqhttp.action.send_msg import send_group_msg
 from match.xinfa import xinfa_set, match_xinfa
+from music.music_api import query_song_id
 from query.common_query import query_macro, query_heighten, query_daily, \
     query_gold_price
 from query.static import query_saohua, flatterer_diary
@@ -62,7 +63,8 @@ def on_message(ws, message):
         send_group_msg(msg["group_id"], getoutput("git rev-parse HEAD"))
 
     if op == "点歌":
-        send_group_msg(msg["group_id"], "[CQ:music,type=qq,id=213054628]")
+        result = query_song_id(args[-1])
+        send_group_msg(msg["group_id"], f"[CQ:music,type=qq,id={result}]")
 
 
 
