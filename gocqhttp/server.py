@@ -62,7 +62,7 @@ def on_message(ws, message):
         send_group_msg(msg["group_id"], getoutput("git rev-parse HEAD"))
 
     if op == "点歌":
-        send_group_msg(msg["group_id"], "[CQ:music,type=qq,id=000MDaNK0krdFb]")
+        send_group_msg(msg["group_id"], "[CQ:music,type=qq,id=213054628]")
 
 
 
