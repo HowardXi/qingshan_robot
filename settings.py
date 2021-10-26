@@ -26,6 +26,6 @@ def load_settings(path="./settings.toml"):
 
 cfg = load_settings()
 if cfg["base"]["debug"]:
-    logger.add(sink="log/demo.log", level="DEBUG")
+    logger.add(sink="logs/demo.logs", level="DEBUG")
 else:
-    log.add(sink="log/demo.log", level="WARNING")
+    log.add(sink="logs/demo.logs", level="WARNING")

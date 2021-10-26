@@ -1,4 +1,8 @@
 /dev
 /.idea
-/log
+/logs
 /__pycache__
+**/__pycache__
+**/__pycache__/*
+
+
