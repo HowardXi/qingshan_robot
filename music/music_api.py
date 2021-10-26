@@ -6,7 +6,7 @@
 # @Time     : 2021/10/26 17:17
 # @File     : music_api.py
 
-from QQMusicAPI import QQMusic
+from music.QQMusicAPI import QQMusic
 
 class MusicAPI(object):
     def __init__(self, song_name):
