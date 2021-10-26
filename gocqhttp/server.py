@@ -31,7 +31,7 @@ def on_message(ws, message):
         send_group_msg(msg["group_id"], helper())
 
     if op == "宏":
-        # @ 宏 {心法}, 可以查询这个心法的宏
+        #@ 宏 {心法}, 可以查询这个心法的宏
         logger.info(f"query macro op=宏, args={args}")
         if args[-1] in xinfa_set:
             result = query_macro(match_xinfa(args[-1]))
@@ -40,7 +40,7 @@ def on_message(ws, message):
             send_group_msg(msg["group_id"], "找不到这个心法的宏呢")
 
     if op == "小药":
-        # @ 小药, 查询当前版本小药
+        #@ 小药, 查询当前版本小药
         image_ref = query_heighten(match_xinfa("冰心"))
         send_group_msg(msg["group_id"],
                        f"[CQ:image,file={image_ref},id=40000]")
@@ -52,19 +52,19 @@ def on_message(ws, message):
     #                    f"[CQ:image,image={image_ref},id=40000]")
 
     if op == "来句骚话":
-        # @ 来句骚话, 骚好友骚世界骚门派必备
+        #@ 来句骚话, 骚好友骚世界骚门派必备
         send_group_msg(msg["group_id"], query_saohua())
 
     if op == "舔狗日记":
-        # @ 舔狗日记, 谁会拒绝一个深情舔狗的语录呢
+        #@ 舔狗日记, 谁会拒绝一个深情舔狗的语录呢
         send_group_msg(msg["group_id"], flatterer_diary())
 
     if op == "日常":
-        # @ 日常, 查询今天的日常
+        #@ 日常, 查询今天的日常
         send_group_msg(msg["group_id"], query_daily(args[-1]))
 
     if op == "金价":
-        # @ 金价, 查询这会儿的金价(半小时更新)
+        #@ 金价, 查询这会儿的金价(半小时更新)
         send_group_msg(msg["group_id"], query_gold_price(args[-1]))
 
     if op == "当前bot版本":
@@ -72,7 +72,7 @@ def on_message(ws, message):
         send_group_msg(msg["group_id"], getoutput("git rev-parse HEAD"))
 
     if op == "点歌":
-        # @ 点歌 {歌名}, 给大家分享一首歌, 如比好运来
+        #@ 点歌 {歌名}, 给大家分享一首歌, 如比好运来
         result = query_song_id(args[-1])
         send_group_msg(msg["group_id"], f"[CQ:music,type=qq,id={result}]")
 
