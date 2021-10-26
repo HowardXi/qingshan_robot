@@ -9,6 +9,9 @@
 from requests import get, post
 from query import jx3api_app, jx3api_share, image_gufeng, image_erciyuan
 import json
+from re import compile
+
+find_jpg = compile(r"cdn.seovx.com/ha/img/.*?jpg")
 
 def query_saohua():
     endpoint = "/random"
@@ -29,5 +32,6 @@ def flatterer_diary():
         return request
 
 def random_image(styly="gufeng"):
-    return image_gufeng
-
+    r = get(image_gufeng)
+    image_ref = find_jpg.findall(str(r.content))[0]
+    return image_ref
