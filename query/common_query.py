@@ -58,10 +58,10 @@ def query_gold_price(server_name="天鹅坪"):
         data = request.json()["data"]
         timestamp = time.localtime(data["time"])
         datetime = time.strftime("%Y-%m-%d %H:%M:%S", timestamp)
-        return f"""查询时间: {datetime}  服务器: {data["server"]}
-贴吧:    {data["tieba"]}
-万宝楼:  {data["wanbaolou"]}
-5173:   {data["5173"]}"""
+        return f"""更新时间: {datetime}  服务器: {data["server"]}
+万宝楼:\t{data["wanbaolou"]}
+贴吧:\t{data["tieba"]}
+5173:\t{data["5173"]}"""
     else:
         return request
 
