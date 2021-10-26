@@ -20,13 +20,15 @@ def on_message(ws, message):
     if "message_type" not in msg or msg["message_type"] not in ("group",):
         return
     op = msg["message"].split(" ")[0]
-    args = msg["message"].split(" ")[1:]
+    args = msg["message"].split(" ")[1:] or [None, ]
 
     if op == "宏":
+        logger.info(f"query macro op=宏, args={args}")
         if args[-1] in xinfa_set:
             result = query_macro(match_xinfa(args[-1]))
-            logger.info(f"query macro: {args} result: {result}")
             send_group_msg(msg["group_id"], result)
+        else:
+            send_group_msg(msg["group_id"], "找不到这个心法的宏呢")
 
     if op == "小药":
         image_ref = query_heighten(match_xinfa("冰心"))
