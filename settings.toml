@@ -2,5 +2,5 @@
 debug = false
 
 [gocqhttp]
-ws_addr = "ws://192.168.189.133:16700/"
-http_addr = "http://192.168.189.133:15700"
+ws_addr = "ws://127.0.0.1:16700/"
+http_addr = "http://127.0.0.1:15700"
