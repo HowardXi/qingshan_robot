@@ -5,15 +5,18 @@
 # @Project  : qingshan
 # @Time     : 2021/10/25 14:50
 # @File     : server.py
-import websocket
 import json
 from subprocess import getoutput
-from settings import cfg
-from query.common_query import query_macro, query_heighten, query_daily, query_gold_price
-from query.static import query_saohua, flatterer_diary, random_image
+
+import websocket
+from loguru import logger
+
 from gocqhttp.action.send_msg import send_group_msg
 from match.xinfa import xinfa_set, match_xinfa
-from loguru import logger
+from query.common_query import query_macro, query_heighten, query_daily, \
+    query_gold_price
+from query.static import query_saohua, flatterer_diary
+from settings import cfg
 
 
 def on_message(ws, message):
@@ -36,10 +39,11 @@ def on_message(ws, message):
         send_group_msg(msg["group_id"],
                        f"[CQ:image,file={image_ref},id=40000]")
 
-    if op == "来张美图":
-        image_ref = random_image()
-        send_group_msg(msg["group_id"],
-                       f"[CQ:image,image={image_ref},id=40000]")
+    # if op == "来张图":
+    #     # TODO 图片要缓存到本地?
+    #     image_ref = random_image()
+    #     send_group_msg(msg["group_id"],
+    #                    f"[CQ:image,image={image_ref},id=40000]")
 
     if op == "来句骚话":
         send_group_msg(msg["group_id"], query_saohua())
@@ -47,7 +51,7 @@ def on_message(ws, message):
     if op == "舔狗日记":
         send_group_msg(msg["group_id"], flatterer_diary())
 
-    if op == "今日日常":
+    if op == "日常":
         send_group_msg(msg["group_id"], query_daily(args[-1]))
 
     if op == "金价":
@@ -56,6 +60,16 @@ def on_message(ws, message):
     if op == "当前bot版本":
         # if sender in super_admins
         send_group_msg(msg["group_id"], getoutput("git rev-parse HEAD"))
+
+    if op == "点歌":
+        send_group_msg(msg["group_id"], json.dumps({
+            "type": "music",
+            "data": {
+                "type": "qq",
+                "id": "000MDaNK0krdFb"
+            }
+        }))
+
 
 def on_error(ws, error):
     logger.error(error)
