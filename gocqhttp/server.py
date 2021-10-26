@@ -8,7 +8,7 @@
 import websocket
 import json
 from settings import cfg
-from query.common_query import query_macro, query_heighten
+from query.common_query import query_macro, query_heighten, query_daily, query_gold_price
 from query.static import query_saohua, flatterer_diary, random_image
 from gocqhttp.action.send_msg import send_group_msg
 from match.xinfa import xinfa_set, match_xinfa
@@ -44,6 +44,11 @@ def on_message(ws, message):
     if op == "舔狗日记":
         send_group_msg(msg["group_id"], flatterer_diary())
 
+    if op == "今日日常":
+        send_group_msg(msg["group_id"], query_daily(args[-1]))
+
+    if op == "金价":
+        send_group_msg(msg["group_id"], query_gold_price(args[-1]))
 
 def on_error(ws, error):
     logger.error(error)
