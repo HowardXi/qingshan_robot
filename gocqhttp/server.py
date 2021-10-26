@@ -39,7 +39,7 @@ def on_message(ws, message):
     if op == "来张美图":
         image_ref = random_image()
         send_group_msg(msg["group_id"],
-                       f"[CQ:image,file={image_ref},id=40000]")
+                       f"[CQ:image,image={image_ref},id=40000]")
 
     if op == "来句骚话":
         send_group_msg(msg["group_id"], query_saohua())
