@@ -38,12 +38,12 @@ def query_daily(server_name="天鹅坪"):
     request = get(jx3api_app + endpoint, data=json.dumps({"name": server_name}))
     if request.status_code == 200:
         data = request.json()["data"]
-        return f"""日期: {data["date"]} 周{data["week"]}
+        return f"""日期: {data["date"]} 周{data["week"]} 服务器: {server_name}
 公共周长: {data["weekPublic"]}
 五人周长: {data["weekFive"]}
 团队周长: {data["weekTeam"]}
 每日战场: {data["dayBattle"]}
-大战:    {data["dayWar"]}
+大战:     {data["dayWar"]}
 阵营日常: {data["dayCamp"]}
 共同日常: {data["dayPublic"]}"""
     else:
