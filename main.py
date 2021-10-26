@@ -11,4 +11,5 @@ from loguru import logger
 from gocqhttp.server import ws
 
 if __name__ == '__main__':
+    logger.info("---- server start ----")
     ws.run_forever()
