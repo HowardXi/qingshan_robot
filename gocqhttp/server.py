@@ -15,7 +15,7 @@ from gocqhttp.action.send_msg import send_group_msg
 from match.xinfa import xinfa_set, match_xinfa
 from music.music_api import query_song_id
 from query.common_query import query_macro, query_heighten, query_daily, \
-    query_gold_price, query_support_pet, query_pet
+    query_gold_price, format_support_pet, query_server_pet, query_personal_pet_records
 from query.static import query_saohua, flatterer_diary, daily_material
 from settings import cfg
 
@@ -82,16 +82,17 @@ def on_message(ws, message):
 
     if op == "查询蹲宠":
         #@ 查询蹲宠, 查询现在支持的蹲宠
-        send_group_msg(msg["group_id"], query_support_pet())
+        send_group_msg(msg["group_id"], format_support_pet())
 
     if op == "蹲宠":
-        #@ 蹲宠, 查询最近宠物的触发时间 '蹲宠 {服务器} {宠物名} {角色名}' 其中宠物名可以写"全部", 角色名可以不写来查询全服数据
-        server, pet, role = None, None, None
-        if len(args) == 2:
-            server, pet = args
-        if len(args) == 3:
-            server, pet, role = args
-        send_group_msg(msg["group_id"], query_pet(server=server, pet=pet, role=role))
+        #@ 蹲宠, 查询全服最近对应宠物的触发时间 '蹲宠 {服务器} {宠物名}' 其中宠物名可以写"全部"
+        server, pet = args
+        send_group_msg(msg["group_id"], query_server_pet(server=server, pet=pet))
+
+    if op == "查询角色宠物":
+        #@ 查询角色宠物, 查询指定角色名的最近宠物触发情况 '查询角色宠物 {服务器} {角色名}', 有时候会获取不到具体时间
+        server, role = args
+        send_group_msg(msg["group_id"], query_personal_pet_records(server=server, role_name=role))
 
 def on_error(ws, error):
     logger.error(error)

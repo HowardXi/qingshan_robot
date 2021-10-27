@@ -17,7 +17,7 @@ import time
 #  'User-Agent':'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36 QIHU 360SE'
 # }
 
-def query_support_pet():
+def format_support_pet():
     pets = query_recored_pet()
     msg = ""
     index = 0
@@ -29,46 +29,65 @@ def query_support_pet():
     return msg
 
 
-def query_pet(server, pet=None, role=None):
-    if not server or server == "全部":
-        return """需要指明服务器, 使用方式是'蹲宠 {服务器名} {宠物名}', 宠物名可以写'全部'"""
+def query_personal_pet_records(server, role_name):
+    url = pet_api.format(
+        server_name=server,
+        pet_name=",".join(query_recored_pet()),
+        role_name=role_name
+    )
+    msg = f"""蹲宠查询结果\n服务器:{server}  角色: {role_name}"""
+    req = get(url)
+    res = req.json()
+    datetime_normal = True
+    if req.status_code == 200 and res["code"] == 0:
+        msg += "\n"
+        if res["data"]["data"]:
+            for record in res["data"]["data"]:
+                msg += f"""宠物: {record["serendipity"]}"""
+                if record["date_str"]:
+                    msg += """时间: {record["date_str"]}\n"""
+                else:
+                    datetime_normal = False
+                    msg += "\n"
+            if not datetime_normal:
+                msg += "查询不到时间呢, 我是辣鸡, 哭惹\n"
+        else:
+            msg += "没有查询到记录"
+    return msg
 
-    if role in (None, "全部"):
-        role = ""
+def query_server_pet(server, pet=None):
+    if not server or server == "全部":
+        return """需要指明服务器, 使用方式是'蹲宠 {服务器名} {宠物名}', 宠物名可以写'全部'来查询所有宠物"""
+    pet_cd = query_pet_cd(pet)
+
     if pet in (None, "全部"):
-        pet = ""
+        # 避免 '全部' 关键字查询出错
+        pet_cd = "小时"
     else:
         if not is_support_pet(pet):
             return "查不到这个宠物的信息, 看看是不是在支持列表里吧"
-    pet_cd = query_pet_cd(pet)
+    msg = f"""蹲宠查询结果\n服务器:{server}  """
+    if pet:
+        msg += f"""宠物:{pet}  地点:{query_pet_place(pet)}  cd:{pet_cd}"""
+
     if "小时" in pet_cd:
         url = pet_api.format(
             server_name=server,
-            pet_name=pet,
-            role_name=role
+            pet_name=pet.replace("全部", ",".join(query_recored_pet())),
+            role_name=""
         )
         req = get(url)
         res = req.json()
     else:
-        msg = f"""蹲宠查询结果
-服务器:{server}  """
         if pet:
-            msg += f"""宠物:{pet}  地点:{query_pet_place(pet)}  cd:{pet_cd}
-快去摸!
-"""
+            msg += f"""{pet}的下一个有缘人就是你 快去摸!"""
         return msg
-
     if req.status_code == 200 and res["code"] == 0:
-        msg = f"""蹲宠查询结果
-服务器:{server}  """
-        if pet:
-            msg += f"""宠物:{pet}  地点:{query_pet_place(pet)}  cd:{pet_cd}"""
-        if role:
-            msg == f"\n查询角色: {role}\n"
         msg += "\n"
         if res["data"]["data"]:
             for record in res["data"]["data"]:
-                msg += f"""时间: {record["date_str"]}\n"""
+                msg += f"""宠物: {record["serendipity"]} 时间: {record["date_str"]}\n"""
+
         else:
             msg += "没有查询到记录"
         return msg
@@ -134,4 +153,5 @@ def query_gold_price(server_name="天鹅坪"):
 
 
 if __name__ == '__main__':
-    print(query_pet("天鹅坪", "小花", "故夕夕"))
+    # print(query_server_pet("天鹅坪", "果果"))
+    print(query_personal_pet_records("天鹅坪", "与晋长安"))
