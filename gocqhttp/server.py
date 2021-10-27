@@ -15,7 +15,7 @@ from gocqhttp.action.send_msg import send_group_msg
 from match.xinfa import xinfa_set, match_xinfa
 from music.music_api import query_song_id
 from query.common_query import query_macro, query_heighten, query_daily, \
-    query_gold_price, format_support_pet, query_server_pet, query_personal_pet_records
+    query_gold_price, format_support_pet, query_server_pet, query_personal_pet_records, query_price
 from query.static import query_saohua, flatterer_diary, daily_material
 from settings import cfg
 
@@ -93,6 +93,11 @@ def on_message(ws, message):
         #@ 查询角色宠物, 查询指定角色名的最近宠物触发情况 食用方法:'查询角色宠物 {服务器} {角色名}' 有时候会获取不到具体时间
         server, role = args
         send_group_msg(msg["group_id"], query_personal_pet_records(server=server, role_name=role))
+
+    if op == "物价查询":
+        #@ 物价查询, 查询指定服务器最近指定物品的交易情况, 食用方法: '物价查询 {服务器} {物品名}' 服务器写别名也行
+        server, item = args
+        send_group_msg(msg["group_id"], query_price(server, item))
 
 def on_error(ws, error):
     logger.error(error)

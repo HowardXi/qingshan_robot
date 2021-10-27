@@ -21,4 +21,4 @@ daily_secret = "https://cms.jx3box.com/api/cms/news?client=std&type=code&status=
 
 # 查询宠物最近触发
 pet_api = "https://next.jx3box.com/api/serendipity?" \
-          "server={server_name}&role={role_name}&serendipity={pet_name}&start=0&pageIndex=1&pageSize=10"
+          "server={server_name}&role={role_name}&serendipity={pet_name}&start=0&pageIndex=1&pageSize=6"
