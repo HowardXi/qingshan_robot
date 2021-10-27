@@ -7,7 +7,7 @@
 # @File     : common_query.py
 
 from requests import get, post
-from match.pets import query_pet_place, query_pet_cd, query_recored_pet
+from match.pets import query_pet_place, query_pet_cd, query_recored_pet, is_support_pet
 from urllib.request import quote
 from query import jx3api_app, pet_api
 import json
@@ -33,12 +33,14 @@ def query_pet(server, pet=None, role=None):
     if not server or server == "全部":
         return """需要指明服务器, 使用方式是'蹲宠 {服务器名} {宠物名}', 宠物名可以写'全部'"""
 
-    if role in (None,"全部"):
+    if role in (None, "全部"):
         role = ""
-    if pet in (None,"全部"):
+    if pet in (None, "全部"):
         pet = ""
+    else:
+        if not is_support_pet(pet):
+            return "查不到这个宠物的信息, 看看是不是在支持列表里吧"
     pet_cd = query_pet_cd(pet)
-    print(pet_cd, "小时" not in pet_cd)
     if "小时" in pet_cd:
         url = pet_api.format(
             server_name=server,

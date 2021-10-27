@@ -11,6 +11,9 @@ if not os.path.exists(pet_file):
 with open(pet_file, "r", encoding="utf-8") as f:
     pet_data = load(f)
 
+def is_support_pet(name):
+    return name in pet_data
+
 def query_pet_cd(name):
     if name in pet_data:
         return pet_data[name]["cd"]
