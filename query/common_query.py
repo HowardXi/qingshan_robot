@@ -37,20 +37,27 @@ def query_pet(server, pet=None, role=None):
         role = ""
     if pet in (None,"全部"):
         pet = ""
-    print(pet_api)
-    url = pet_api.format(
-        server_name=server,
-        pet_name=pet,
-        role_name=role
-    )
-    req = get(url)
-    res = req.json()
-    print(res)
+    pet_cd = query_pet_cd(pet)
+    if "小时" not in pet_cd:
+        url = pet_api.format(
+            server_name=server,
+            pet_name=pet,
+            role_name=role
+        )
+        req = get(url)
+        res = req.json()
+    else:
+        msg = f"""蹲宠查询结果
+服务器:{server}  """
+        if pet:
+            msg += f"""宠物:{pet}  地点:{query_pet_place(pet)}  cd:{pet_cd}"""
+        return msg
+
     if req.status_code == 200 and res["code"] == 0:
         msg = f"""蹲宠查询结果
 服务器:{server}  """
         if pet:
-            msg += f"""宠物:{pet}  地点:{query_pet_place(pet)}  cd:{query_pet_cd(pet)}"""
+            msg += f"""宠物:{pet}  地点:{query_pet_place(pet)}  cd:{pet_cd}"""
         msg += "\n"
         for record in res["data"]["data"]:
             msg += f"""时间: {record["date_str"]}\n"""
