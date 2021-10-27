@@ -63,6 +63,8 @@ def query_pet(server, pet=None, role=None):
 服务器:{server}  """
         if pet:
             msg += f"""宠物:{pet}  地点:{query_pet_place(pet)}  cd:{pet_cd}"""
+        if role:
+            msg == f"\n查询角色: {role}\n"
         msg += "\n"
         if res["data"]["data"]:
             for record in res["data"]["data"]:
