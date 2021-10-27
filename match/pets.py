@@ -3,7 +3,7 @@
 
 from json import load
 
-with open("../db/pets.json", "r", encoding="utf-8") as f:
+with open("db/pets.json", "r", encoding="utf-8") as f:
     pet_data = load(f)
 
 def query_pet_cd(name):
