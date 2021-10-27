@@ -31,7 +31,7 @@ def on_message(ws, message):
         send_group_msg(msg["group_id"], helper())
 
     if op == "宏":
-        #@ 宏 {心法}, 可以查询这个心法的宏
+        #@ 宏, 可以查询这个心法的宏 食用方法:'宏 {心法}'
         logger.info(f"query macro op=宏, args={args}")
         if args[-1] in xinfa_set:
             result = query_macro(match_xinfa(args[-1]))
@@ -72,7 +72,7 @@ def on_message(ws, message):
         send_group_msg(msg["group_id"], getoutput("git rev-parse HEAD"))
 
     if op == "点歌":
-        #@ 点歌 {歌名}, 给大家分享一首歌, 如比好运来
+        #@ 点歌, 给大家分享一首歌, 食用方法: '点歌 {歌名}'
         result = query_song_id(args[-1])
         send_group_msg(msg["group_id"], f"[CQ:music,type=qq,id={result}]")
 
@@ -85,12 +85,12 @@ def on_message(ws, message):
         send_group_msg(msg["group_id"], format_support_pet())
 
     if op == "蹲宠":
-        #@ 蹲宠, 查询全服最近对应宠物的触发时间 '蹲宠 {服务器} {宠物名}' 其中宠物名可以写"全部"
+        #@ 蹲宠, 查询全服最近对应宠物的触发时间 食用方法:'蹲宠 {服务器} {宠物名}' 其中宠物名可以写"全部"
         server, pet = args
         send_group_msg(msg["group_id"], query_server_pet(server=server, pet=pet))
 
     if op == "查询角色宠物":
-        #@ 查询角色宠物, 查询指定角色名的最近宠物触发情况 '查询角色宠物 {服务器} {角色名}', 有时候会获取不到具体时间
+        #@ 查询角色宠物, 查询指定角色名的最近宠物触发情况 食用方法:'查询角色宠物 {服务器} {角色名}' 有时候会获取不到具体时间
         server, role = args
         send_group_msg(msg["group_id"], query_personal_pet_records(server=server, role_name=role))
 
