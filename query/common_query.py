@@ -38,7 +38,8 @@ def query_pet(server, pet=None, role=None):
     if pet in (None,"全部"):
         pet = ""
     pet_cd = query_pet_cd(pet)
-    if "小时" not in pet_cd:
+    print(pet_cd, "小时" not in pet_cd)
+    if "小时" in pet_cd:
         url = pet_api.format(
             server_name=server,
             pet_name=pet,
@@ -50,7 +51,9 @@ def query_pet(server, pet=None, role=None):
         msg = f"""蹲宠查询结果
 服务器:{server}  """
         if pet:
-            msg += f"""宠物:{pet}  地点:{query_pet_place(pet)}  cd:{pet_cd}"""
+            msg += f"""宠物:{pet}  地点:{query_pet_place(pet)}  cd:{pet_cd}
+快去摸!
+"""
         return msg
 
     if req.status_code == 200 and res["code"] == 0:
@@ -124,4 +127,4 @@ def query_gold_price(server_name="天鹅坪"):
 
 
 if __name__ == '__main__':
-    print(query_support_pet())
+    print(query_pet("天鹅坪", "青蟹"))

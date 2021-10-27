@@ -2,8 +2,13 @@
 # -*- coding: utf-8 -*-
 
 from json import load
+import os
 
-with open("db/pets.json", "r", encoding="utf-8") as f:
+pet_file = "db/pets.json"
+if not os.path.exists(pet_file):
+    pet_file = "../db/pets.json"
+
+with open(pet_file, "r", encoding="utf-8") as f:
     pet_data = load(f)
 
 def query_pet_cd(name):
