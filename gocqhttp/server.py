@@ -16,7 +16,7 @@ from match.xinfa import xinfa_set, match_xinfa
 from music.music_api import query_song_id
 from query.common_query import query_macro, query_heighten, query_daily, \
     query_gold_price
-from query.static import query_saohua, flatterer_diary
+from query.static import query_saohua, flatterer_diary, daily_material
 from settings import cfg
 
 
@@ -75,6 +75,10 @@ def on_message(ws, message):
         #@ 点歌 {歌名}, 给大家分享一首歌, 如比好运来
         result = query_song_id(args[-1])
         send_group_msg(msg["group_id"], f"[CQ:music,type=qq,id={result}]")
+
+    if op == "财富密码":
+        #@ 财富密码, 查询今天的蚊子腿福利
+        send_group_msg(msg["group_id"],daily_material())
 
 
 def on_error(ws, error):

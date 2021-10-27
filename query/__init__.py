@@ -15,3 +15,6 @@ jx3api_share = "https://www.jx3api.com/share"
 # 随机图片 古风 & 二次元
 image_gufeng = "https://cdn.seovx.com/ha"
 image_erciyuan= "https://cdn.seovx.com/d"
+
+# 每日财富密码
+daily_secret = "https://cms.jx3box.com/api/cms/news?client=std&type=code&status=1"
