@@ -64,8 +64,11 @@ def query_pet(server, pet=None, role=None):
         if pet:
             msg += f"""宠物:{pet}  地点:{query_pet_place(pet)}  cd:{pet_cd}"""
         msg += "\n"
-        for record in res["data"]["data"]:
-            msg += f"""时间: {record["date_str"]}\n"""
+        if res["data"]["data"]:
+            for record in res["data"]["data"]:
+                msg += f"""时间: {record["date_str"]}\n"""
+        else:
+            msg += "没有查询到记录"
         return msg
     else:
         return "查询出错 联系青山问一下"
@@ -129,4 +132,4 @@ def query_gold_price(server_name="天鹅坪"):
 
 
 if __name__ == '__main__':
-    print(query_pet("天鹅坪", "青蟹"))
+    print(query_pet("天鹅坪", "小花", "故夕夕"))
