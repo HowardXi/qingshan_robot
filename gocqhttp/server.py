@@ -123,7 +123,7 @@ def helper():
     help_text = ["帮助文档:"]
     for line in lines:
         line = line.strip()
-        if line.startswith("# @"):
+        if line.startswith("# @ "):
             line = line.replace("# @ ", "")
             keyword, desc = line.split(",", maxsplit=1)
             keyword = "关键字: '%s'" % keyword
@@ -137,3 +137,5 @@ ws = websocket.WebSocketApp(
     on_message=on_message,
     on_error=on_error,
     on_close=on_close)
+if __name__ == '__main__':
+    print(helper())
