@@ -175,8 +175,23 @@ def query_gold_price(server_name="天鹅坪"):
     else:
         return request
 
+def query_server_state(server):
+    endpoint = "/check"
+    request = get(jx3api_app + endpoint, data=json.dumps({"server": server}))
+    print (request.json())
+    if request.status_code == 200:
+        state = request.json()["data"]["status"]
+        if state:
+            return f"""{server} 状态: 开服中💚"""
+        else:
+            return f"""{server} 状态: 维护中💔"""
+    else:
+        return request
+
+
 
 if __name__ == '__main__':
     # print(query_server_pet("天鹅坪", "果果"))
     # print(query_personal_pet_records("天鹅坪", "与晋长安"))
-    print(query_price("纵月", "青盒子"))
+    # print(query_price("纵月", "青盒子"))
+    print(query_server_state("天鹅坪"))
