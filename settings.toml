@@ -1,5 +1,9 @@
 [base]
 debug = false
+superadmin = "409356915"
+
+[DB]
+uri = "sqlite:///db/qsbot.db"
 
 [gocqhttp]
 ws_addr = "ws://127.0.0.1:16700/"
