@@ -10,7 +10,7 @@ from requests import get, post
 from match.pets import query_pet_place, query_pet_cd, query_recored_pet, is_support_pet
 from match.server_alias import server2alias
 from query import jx3api_app, pet_api
-from parse_html_query import query_all_sandbox
+from query.parse_html_query import query_all_sandbox
 import json
 import time
 
