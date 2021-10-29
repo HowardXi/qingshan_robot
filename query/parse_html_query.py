@@ -56,7 +56,6 @@ def query_all_sandbox():
 
     for server, ref in zip(servers, refs):
         server = server.split("- ")[-1]
-        print(server, "https://img.j3sp.com/uploads/%s.png_small" % ref)
         sandbox[server] = "https://img.j3sp.com/uploads/%s.png_small" % ref
 
     return sandbox

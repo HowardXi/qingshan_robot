@@ -14,6 +14,7 @@ from loguru import logger
 
 from gocqhttp.action.send_msg import send_group_msg
 from match.xinfa import xinfa_set, match_xinfa
+from match.server_alias import server2alias
 from music.music_api import query_song_id
 from query.common_query import query_macro, query_heighten, query_daily, \
     query_gold_price, format_support_pet, query_server_pet, \
@@ -90,12 +91,14 @@ def on_message(ws, message):
     if op == "蹲宠":
         # @ 蹲宠, 查询全服最近对应宠物的触发时间 食用方法:'蹲宠 {服务器} {宠物名}' 其中宠物名可以写"全部"
         server, pet = args
+        server = server2alias(server)
         send_group_msg(msg["group_id"],
                        query_server_pet(server=server, pet=pet))
 
     if op == "查询角色宠物":
         # @ 查询角色宠物, 查询指定角色名的最近宠物触发情况 食用方法:'查询角色宠物 {服务器} {角色名}' 有时候会获取不到具体时间
         server, role = args
+        server = server2alias(server)
         send_group_msg(msg["group_id"],
                        query_personal_pet_records(server=server,
                                                   role_name=role))
@@ -103,6 +106,7 @@ def on_message(ws, message):
     if op == "物价查询":
         # @ 物价查询, 查询指定服务器最近指定物品的交易情况, 食用方法: '物价查询 {服务器} {物品名}' 服务器写别名也行
         server = "全部"
+        server = server2alias(server)
         if len(args) == 2:
             server, item = args
         elif len(args) == 1:
@@ -114,11 +118,13 @@ def on_message(ws, message):
     if op == "开服":
         # @ 开服, 查询服务器开服状态, 食用方法: '开服 {服务器}'
         server = args[-1]
+        server = server2alias(server)
         send_group_msg(msg["group_id"], query_server_state(server))
 
     if  op == "沙盘":
         # @ 沙盘, 查询指定服务器沙盘状态, 使用: '沙盘 {服务器}'
         server = args[-1]
+        server = server2alias(server)
         image_ref = query_server_sandbox(server)
         send_group_msg(msg["group_id"], f"[CQ:image,url={image_ref},id=40000]")
 

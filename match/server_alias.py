@@ -1,8 +1,10 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+from exception import ServerNotFound
 
 alias_server_mapping = {
+    "全部": "全部",
     "天鹅坪": "纵月",
     "唯我独尊": "唯满侠",
 }
@@ -21,5 +23,5 @@ def server2alias(server_alias):
     """
     if server_alias in server_alias_mapping:
         return server_alias_mapping[server_alias]
-    else:
-        raise()
+    if server_alias in alias_server_mapping:
+        return server_alias
