@@ -27,6 +27,7 @@ def on_message(ws, message):
         return
     op = msg["message"].split(" ")[0]
     args = msg["message"].split(" ")[1:] or [None, ]
+    logger.info(f"split message: op={op}, args={args}")
 
     if op == "帮助":
         send_group_msg(msg["group_id"], helper())
