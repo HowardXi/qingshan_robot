@@ -111,9 +111,14 @@ def query_price(server, item):
             for record in array:
                 if record["server"] == server or record["server"] == server_alias:
                     server_filter.append(record)
-
-        for record in server_filter:
-            msg += f"""时间: {record["time"]} 有人{record["price"]}{record["sales"]}了\n"""
+                if server == "全部":
+                    server_filter.append(record)
+        if server != "全部":
+            for record in server_filter[0:6]:
+                msg += f"""时间: {record["time"]} 有人{record["price"]}{record["sales"]}了\n"""
+        else:
+            for record in server_filter[0:6]:
+                msg += f"""时间: {record["time"]} 有人在{record["server"]}以{record["price"]}的价格{record["sales"]}了\n"""
     else:
         msg = f"本萌新咋没听说过这个东西啊(理直气壮), 要不换个名字试试"
     return msg
@@ -193,5 +198,5 @@ def query_server_state(server):
 if __name__ == '__main__':
     # print(query_server_pet("天鹅坪", "果果"))
     # print(query_personal_pet_records("天鹅坪", "与晋长安"))
-    # print(query_price("纵月", "青盒子"))
-    print(query_server_state("天鹅坪"))
+    print(query_price("纵月", "青盒子"))
+    # print(query_server_state("天鹅坪"))

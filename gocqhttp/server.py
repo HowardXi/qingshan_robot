@@ -101,7 +101,13 @@ def on_message(ws, message):
 
     if op == "物价查询":
         # @ 物价查询, 查询指定服务器最近指定物品的交易情况, 食用方法: '物价查询 {服务器} {物品名}' 服务器写别名也行
-        server, item = args
+        server = "全部"
+        if len(args) == 2:
+            server, item = args
+        elif len(args) == 1:
+            item = args[0]
+        else:
+            send_group_msg(msg["group_id"],"查询命令不正确")
         send_group_msg(msg["group_id"], query_price(server, item))
 
     if op == "开服":
