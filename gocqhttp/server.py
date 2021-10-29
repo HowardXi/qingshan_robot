@@ -7,6 +7,7 @@
 # @File     : server.py
 import json
 from subprocess import getoutput
+from exception import QsBaseException
 
 import websocket
 from loguru import logger
@@ -16,7 +17,7 @@ from match.xinfa import xinfa_set, match_xinfa
 from music.music_api import query_song_id
 from query.common_query import query_macro, query_heighten, query_daily, \
     query_gold_price, format_support_pet, query_server_pet, \
-    query_personal_pet_records, query_price, query_server_state
+    query_personal_pet_records, query_price, query_server_state, query_server_sandbox
 from query.static import query_saohua, flatterer_diary, daily_material
 from settings import cfg
 
@@ -115,9 +116,18 @@ def on_message(ws, message):
         server = args[-1]
         send_group_msg(msg["group_id"], query_server_state(server))
 
+    if  op == "沙盘":
+        # @ 沙盘, 查询指定服务器沙盘状态, 使用: '沙盘 {服务器}'
+        server = args[-1]
+        image_ref = query_server_sandbox(server)
+        send_group_msg(msg["group_id"], f"[CQ:image,url={image_ref},id=40000]")
+
 
 def on_error(ws, error):
     logger.error(error)
+    if isinstance(error, QsBaseException):
+        send_group_msg(error.group_id, str(error))
+        logger.info("回复错误处理消息%s to %s" % (str(error), error.group_id))
 
 
 def on_close(ws):

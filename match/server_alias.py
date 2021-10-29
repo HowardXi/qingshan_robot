@@ -14,8 +14,12 @@ def alias2server(alias):
     else:
         return None
 
-def server2alias(server_name):
-    if server_name in server_alias_mapping:
-        return server_alias_mapping[server_name]
+def server2alias(server_alias):
+    """
+    :param server_alias: 服务器俗名
+    :return: 主服务器名
+    """
+    if server_alias in server_alias_mapping:
+        return server_alias_mapping[server_alias]
     else:
-        return None
+        raise()

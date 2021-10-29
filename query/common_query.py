@@ -9,8 +9,8 @@
 from requests import get, post
 from match.pets import query_pet_place, query_pet_cd, query_recored_pet, is_support_pet
 from match.server_alias import server2alias
-from urllib.request import quote
 from query import jx3api_app, pet_api
+from parse_html_query import query_all_sandbox
 import json
 import time
 
@@ -193,6 +193,10 @@ def query_server_state(server):
     else:
         return request
 
+
+def query_server_sandbox(server):
+    image_ref = query_all_sandbox()[server]
+    return image_ref
 
 
 if __name__ == '__main__':
