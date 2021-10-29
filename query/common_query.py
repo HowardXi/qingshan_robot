@@ -200,8 +200,9 @@ def query_server_sandbox(server):
 
 
 if __name__ == '__main__':
+    from match.server_alias import alias2server
     # print(query_server_pet("天鹅坪", "果果"))
     # print(query_personal_pet_records("天鹅坪", "与晋长安"))
     # print(query_price("纵月", "青盒子"))
-    # print(query_server_state("天鹅坪"))
-    print(query_server_sandbox("天鹅坪"))
+    print(query_server_state(alias2server("天鹅坪")))
+    # print(query_server_sandbox("天鹅坪"))
