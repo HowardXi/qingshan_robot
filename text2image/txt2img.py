@@ -18,7 +18,7 @@ class Text2Img(object):
         self.text = text
         self.font_size = 14
         self.width = 250
-        self.font = ImageFont.truetype("./zhangqiling.ttf", self.font_size)
+        self.font = ImageFont.truetype("text2image/zhangqiling.ttf", self.font_size)
         self.hangju = self.font_size + 5
         self.splited = self.split_text()
 
@@ -48,7 +48,7 @@ class Text2Img(object):
         for line in lines:
             draw.text((x, y), line, fill=(0, 0, 0), font=self.font)
             y += self.hangju
-        file_path = "./image_cache/%s.png" % uuid4().hex
+        file_path = "image_cache/%s.png" % uuid4().hex
         diary_img.save(file_path)
         return file_path
 
@@ -63,9 +63,9 @@ class FlatererDiary(object):
             self.today, self.weather) + text
         self.diary_width = 250
         self.font_size = 14
-        self.font = ImageFont.truetype("./msyh.ttf", self.font_size)
+        self.font = ImageFont.truetype("text2image/msyh.ttf", self.font_size)
         self.hangju = self.font_size + 5
-        self.header_path = "./tiangou.png"
+        self.header_path = "text2image/tiangou.png"
         self.header = Image.open(self.header_path)
         self.splited = self.split_text()
 
@@ -111,7 +111,7 @@ class FlatererDiary(object):
         diary_content = self.draw_text(
             total_height - self.header.size[1] + 100)
         bg.paste(diary_content, (0, self.header.size[1]))
-        file_path = "./image_cache/%s.png" % uuid4().hex
+        file_path = "image_cache/%s.png" % uuid4().hex
         bg.save(file_path)
         return file_path
 
