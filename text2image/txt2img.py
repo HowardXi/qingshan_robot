@@ -10,12 +10,14 @@ import time
 from random import choice
 from uuid import uuid4
 from os.path import abspath
+from loguru import logger
 
 from PIL import Image, ImageDraw, ImageFont
 
 
 class Text2Img(object):
     def __init__(self, text):
+        logger.info("convert text to image, text: %s" % text)
         self.text = text
         self.font_size = 14
         self.width = 250
