@@ -13,6 +13,7 @@ from query import jx3api_app, pet_api
 from query.parse_html_query import query_all_sandbox
 import json
 import time
+from loguru import logger
 
 # headers = {
 #  'User-Agent':'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36 QIHU 360SE'
@@ -100,6 +101,8 @@ def query_price(server, item):
     endpoint = "/price"
     request = get(jx3api_app + endpoint, data=json.dumps({"name": item}))
     if request.status_code == 200:
+        logger.info("query_price %s, %s. respone: %s" % (
+            server, item, request.content))
         data = request.json()["data"]
         msg = f"""{data["name"]}
 {data["info"]}
@@ -204,6 +207,6 @@ if __name__ == '__main__':
     from match.server_alias import alias2server
     # print(query_server_pet("天鹅坪", "果果"))
     # print(query_personal_pet_records("天鹅坪", "与晋长安"))
-    # print(query_price("天鹅坪", "青盒子"))
+    print(query_price("天鹅坪", "青盒子"))
     # print(query_server_state(alias2server("天鹅坪")))
-    print(query_server_sandbox("天鹅坪"))
+    # print(query_server_sandbox("天鹅坪"))
