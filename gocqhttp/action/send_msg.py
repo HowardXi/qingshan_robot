@@ -42,5 +42,6 @@ def text2image(text):
     return abs
 
 def image_cq_wrapper(path):
+    logger.info("generate CQcode: %s" % f"[CQ:image,file=file://{path},id=40000]")
     return f"[CQ:image,file=file://{path},id=40000]"
 
