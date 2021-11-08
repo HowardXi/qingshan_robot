@@ -20,7 +20,7 @@ class Text2Img(object):
     def __init__(self, text):
         logger.info("convert text to image, text: %s" % text)
         self.text = text
-        self.font_size = 16
+        self.font_size = 14
         self.width = 250
         self.font = ImageFont.truetype("text2image/huakangshaonv.ttf",
                                        self.font_size)
