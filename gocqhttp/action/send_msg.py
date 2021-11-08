@@ -37,8 +37,9 @@ def send_private_msg():
 
 def text2image(text):
     img = Text2Img(text)
-    return abspath(img.draw_text())
-
+    abs  = abspath(img.draw_text())
+    logger.info("image abspath = %s" % abs)
+    return abs
 
 def image_cq_wrapper(path):
     return f"[CQ:image,file={path},id=40000]"

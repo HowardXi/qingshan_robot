@@ -133,7 +133,7 @@ def on_message(ws, message):
         # @ 舔狗日记图, 图片版 谁会拒绝一个深情舔狗的语录呢
         content = flatterer_diary()
         img = FlatererDiary(content)
-        path = img.create_blank_bg()
+        path = img.create()
         send_group_msg(msg["group_id"], image_cq_wrapper(path))
 
 

@@ -9,6 +9,7 @@
 import time
 from random import choice
 from uuid import uuid4
+from os.path import abspath
 
 from PIL import Image, ImageDraw, ImageFont
 
@@ -103,7 +104,7 @@ class FlatererDiary(object):
         # diary_img.save("re.png")
         return diary_img
 
-    def create_blank_bg(self):
+    def create(self):
 
         total_height = self.computed_daily_height(self.splited[1])
         bg = Image.new('RGB', (self.diary_width, total_height), )
@@ -113,7 +114,7 @@ class FlatererDiary(object):
         bg.paste(diary_content, (0, self.header.size[1]))
         file_path = "image_cache/%s.png" % uuid4().hex
         bg.save(file_path)
-        return file_path
+        return abspath(file_path)
 
 
 if __name__ == '__main__':
