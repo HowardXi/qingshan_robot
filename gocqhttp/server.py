@@ -137,7 +137,7 @@ def on_message(ws, message):
         send_group_msg(msg["group_id"], image_cq_wrapper(path))
         remove_file(path)
 
-    if op == "沙雕图片":
+    if op == "来张图":
         # @ 沙雕图片, 返回一个随机的沙雕表情包
         path = draw_a_meme()
         send_group_msg(msg["group_id"], image_cq_wrapper(path))
