@@ -114,8 +114,8 @@ def on_message(ws, message):
             item = args[0]
         else:
             send_group_msg(msg["group_id"],"查询命令不正确")
-        msg = query_price(server, item)
-        send_group_msg(msg["group_id"], image_cq_wrapper(text2image(msg)))
+        res = query_price(server, item)
+        send_group_msg(msg["group_id"], image_cq_wrapper(text2image(res)))
 
     if op == "开服":
         # @ 开服, 查询服务器开服状态, 食用方法: '开服 {服务器}'
