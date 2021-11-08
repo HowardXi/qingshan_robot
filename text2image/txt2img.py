@@ -53,7 +53,7 @@ class Text2Img(object):
             y += self.hangju
         file_path = "image_cache/%s.png" % uuid4().hex
         diary_img.save(file_path)
-        return file_path
+        return abspath(file_path)
 
 
 class FlatererDiary(object):

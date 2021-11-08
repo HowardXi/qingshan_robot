@@ -206,8 +206,11 @@ def query_server_sandbox(server):
 
 if __name__ == '__main__':
     from match.server_alias import alias2server
+    from text2image.txt2img import Text2Img
     # print(query_server_pet("天鹅坪", "果果"))
     # print(query_personal_pet_records("天鹅坪", "与晋长安"))
-    print(query_price("天鹅坪", "青盒子"))
+    text = query_price("天鹅坪", "青盒子")
+    img = Text2Img(text)
+    print(img.draw_text())
     # print(query_server_state(alias2server("天鹅坪")))
     # print(query_server_sandbox("天鹅坪"))
