@@ -163,7 +163,7 @@ def helper():
             help_text.append("%s    %s" % (keyword.ljust(20), desc.ljust(20)))
     return "\r\n".join(help_text)
 
-
+websocket.enableTrace(True)
 ws = websocket.WebSocketApp(
     cfg["gocqhttp"]["ws_addr"],
     on_message=on_message,
