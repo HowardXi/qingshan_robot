@@ -12,7 +12,7 @@ from exception import QsBaseException
 import websocket
 from loguru import logger
 
-from gocqhttp.action.send_msg import send_group_msg, image_cq_wrapper
+from gocqhttp.action.send_msg import send_group_msg, image_cq_wrapper, text2image
 from match.xinfa import xinfa_set, match_xinfa
 from match.server_alias import alias2server
 from text2image.txt2img import FlatererDiary
@@ -114,7 +114,8 @@ def on_message(ws, message):
             item = args[0]
         else:
             send_group_msg(msg["group_id"],"查询命令不正确")
-        send_group_msg(msg["group_id"], query_price(server, item))
+        msg = query_price(server, item)
+        send_group_msg(msg["group_id"], image_cq_wrapper(text2image(msg)))
 
     if op == "开服":
         # @ 开服, 查询服务器开服状态, 食用方法: '开服 {服务器}'
