@@ -46,7 +46,7 @@ class Text2Img(object):
                               (255, 255, 255))
         draw = ImageDraw.Draw(diary_img)
         # 左上角开始
-        x, y = 0, 0
+        x, y = 10, 10
         lines, lens = self.splited
         for line in lines:
             draw.text((x, y), line, fill=(0, 0, 0), font=self.font)
