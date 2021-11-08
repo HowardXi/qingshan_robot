@@ -40,5 +40,5 @@ def text2image(text):
 
 
 def image_cq_wrapper(path):
-    return f"[CQ:image,url={path},id=40000]"
+    return f"[CQ:image,file={path},id=40000]"
 
