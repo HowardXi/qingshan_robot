@@ -129,7 +129,7 @@ def on_message(ws, message):
     #     image_ref = query_server_sandbox(server)
     #     send_group_msg(msg["group_id"], f"[CQ:image,url={image_ref},id=40000]")
 
-    if op == "舔狗日记图":
+    if op == "测试图":
         # @ 舔狗日记图, 图片版 谁会拒绝一个深情舔狗的语录呢
         content = flatterer_diary()
         img = FlatererDiary(content)

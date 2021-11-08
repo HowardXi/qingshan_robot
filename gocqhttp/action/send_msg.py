@@ -8,6 +8,7 @@
 
 from requests import get, post
 from settings import cfg
+from os.path import abspath
 from loguru import logger
 from text2image.txt2img import Text2Img
 
@@ -36,7 +37,7 @@ def send_private_msg():
 
 def text2image(text):
     img = Text2Img(text)
-    return img.draw_text()
+    return abspath(img.draw_text())
 
 
 def image_cq_wrapper(path):
