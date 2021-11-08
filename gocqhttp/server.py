@@ -15,7 +15,7 @@ from loguru import logger
 from gocqhttp.action.send_msg import send_group_msg, image_cq_wrapper, text2image
 from match.xinfa import xinfa_set, match_xinfa
 from match.server_alias import alias2server
-from text2image.txt2img import FlatererDiary
+from text2image.txt2img import FlatererDiary, remove_file
 from music.music_api import query_song_id
 from query.common_query import query_macro, query_heighten, query_daily, \
     query_gold_price, format_support_pet, query_server_pet, \
@@ -59,10 +59,6 @@ def on_message(ws, message):
     if op == "来句骚话":
         # @ 来句骚话, 骚好友骚世界骚门派必备
         send_group_msg(msg["group_id"], query_saohua())
-
-    if op == "舔狗日记":
-        # @ 舔狗日记, 谁会拒绝一个深情舔狗的语录呢
-        send_group_msg(msg["group_id"], flatterer_diary())
 
     if op == "日常":
         # @ 日常, 查询今天的日常
@@ -114,8 +110,10 @@ def on_message(ws, message):
             item = args[0]
         else:
             send_group_msg(msg["group_id"],"查询命令不正确")
-        res = query_price(server, item)
-        send_group_msg(msg["group_id"], image_cq_wrapper(text2image(res)))
+
+        path = text2image(query_price(server, item))
+        send_group_msg(msg["group_id"], image_cq_wrapper(path))
+        remove_file(path)
 
     if op == "开服":
         # @ 开服, 查询服务器开服状态, 食用方法: '开服 {服务器}'
@@ -130,13 +128,13 @@ def on_message(ws, message):
     #     image_ref = query_server_sandbox(server)
     #     send_group_msg(msg["group_id"], f"[CQ:image,url={image_ref},id=40000]")
 
-    if op == "测试图":
-        # @ 舔狗日记图, 图片版 谁会拒绝一个深情舔狗的语录呢
+    if op == "舔狗日记":
+        # @ 舔狗日记, 谁会拒绝一个深情舔狗的语录呢
         content = flatterer_diary()
         img = FlatererDiary(content)
         path = img.create()
         send_group_msg(msg["group_id"], image_cq_wrapper(path))
-
+        remove_file(path)
 
 def on_error(ws, error):
     logger.error(error)

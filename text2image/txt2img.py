@@ -7,12 +7,13 @@
 # @File     : txt2img.py
 
 import time
+from os import remove
+from os.path import abspath
 from random import choice
 from uuid import uuid4
-from os.path import abspath
-from loguru import logger
 
 from PIL import Image, ImageDraw, ImageFont
+from loguru import logger
 
 
 class Text2Img(object):
@@ -21,7 +22,8 @@ class Text2Img(object):
         self.text = text
         self.font_size = 14
         self.width = 250
-        self.font = ImageFont.truetype("text2image/zhangqiling.ttf", self.font_size)
+        self.font = ImageFont.truetype("text2image/zhangqiling.ttf",
+                                       self.font_size)
         self.hangju = self.font_size + 5
         self.splited = self.split_text()
 
@@ -42,7 +44,8 @@ class Text2Img(object):
         return lines, len(lines)
 
     def draw_text(self):
-        diary_img = Image.new("RGB", (self.width, self.hangju * self.splited[1]),
+        diary_img = Image.new("RGB",
+                              (self.width, self.hangju * self.splited[1]),
                               (255, 255, 255))
         draw = ImageDraw.Draw(diary_img)
         # 左上角开始
@@ -117,6 +120,10 @@ class FlatererDiary(object):
         file_path = "image_cache/%s.png" % uuid4().hex
         bg.save(file_path)
         return abspath(file_path)
+
+
+def remove_file(abspath):
+    remove(abspath)
 
 
 if __name__ == '__main__':
