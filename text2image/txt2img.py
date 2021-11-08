@@ -35,7 +35,7 @@ class Text2Img(object):
         for char in self.text:
             line += char
             line_width += self.font.getsize(char)[0]
-            if line_width >= (self.width - self.font_size) or char == "\n":
+            if line_width >= (self.width - self.font_size*2) or char == "\n":
                 char_num += len(line)
                 lines.append("".join(line))
                 line = ""
@@ -88,7 +88,7 @@ class FlatererDiary(object):
         for char in self.text:
             line += char
             line_width += self.font.getsize(char)[0]
-            if line_width >= (self.diary_width - self.font_size):
+            if line_width >= (self.diary_width - self.font_size*2):
                 char_num += len(line)
                 lines.append("".join(line))
                 line = ""
