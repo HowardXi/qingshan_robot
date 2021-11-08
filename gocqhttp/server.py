@@ -15,6 +15,7 @@ from loguru import logger
 from gocqhttp.action.send_msg import send_group_msg, image_cq_wrapper, text2image
 from match.xinfa import xinfa_set, match_xinfa
 from match.server_alias import alias2server
+from for_fun.random_meme import draw_a_meme
 from text2image.txt2img import FlatererDiary, remove_file
 from music.music_api import query_song_id
 from query.common_query import query_macro, query_heighten, query_daily, \
@@ -33,7 +34,7 @@ def on_message(ws, message):
     logger.info(f"split message: op={op}, args={args}")
 
     if op == "帮助":
-        send_group_msg(msg["group_id"], helper())
+        send_group_msg(msg["group_id"], image_cq_wrapper(text2image(helper())))
 
     if op == "宏":
         # @ 宏, 可以查询这个心法的宏 食用方法:'宏 {心法}'
@@ -133,6 +134,12 @@ def on_message(ws, message):
         content = flatterer_diary()
         img = FlatererDiary(content)
         path = img.create()
+        send_group_msg(msg["group_id"], image_cq_wrapper(path))
+        remove_file(path)
+
+    if op == "沙雕图片":
+        # @ 沙雕图片, 返回一个随机的沙雕表情包
+        path = draw_a_meme()
         send_group_msg(msg["group_id"], image_cq_wrapper(path))
         remove_file(path)
 
