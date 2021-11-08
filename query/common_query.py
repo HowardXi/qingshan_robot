@@ -195,8 +195,9 @@ def query_server_state(server):
 
 
 def query_server_sandbox(server):
-    image_ref = query_all_sandbox()[server]
-    return image_ref
+    all = query_all_sandbox()
+    print(all)
+    return all[server]
 
 
 if __name__ == '__main__':
@@ -204,5 +205,5 @@ if __name__ == '__main__':
     # print(query_server_pet("天鹅坪", "果果"))
     # print(query_personal_pet_records("天鹅坪", "与晋长安"))
     # print(query_price("纵月", "青盒子"))
-    print(query_server_state(alias2server("天鹅坪")))
-    # print(query_server_sandbox("天鹅坪"))
+    # print(query_server_state(alias2server("天鹅坪")))
+    print(query_server_sandbox("天鹅坪"))

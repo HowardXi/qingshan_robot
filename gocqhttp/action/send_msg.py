@@ -9,6 +9,7 @@
 from requests import get, post
 from settings import cfg
 from loguru import logger
+from text2image.txt2img import Text2Img
 
 base_addr = cfg["gocqhttp"]["http_addr"]
 
@@ -32,3 +33,12 @@ def send_group_msg(group_id: int, msg: str, auto_escape=False):
 
 def send_private_msg():
     pass
+
+def text2image(text):
+    img = Text2Img(text)
+    return img.draw_text()
+
+
+def image_cq_wrapper(path):
+    return f"[CQ:image,url={path},id=40000]"
+

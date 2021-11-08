@@ -12,9 +12,10 @@ from exception import QsBaseException
 import websocket
 from loguru import logger
 
-from gocqhttp.action.send_msg import send_group_msg
+from gocqhttp.action.send_msg import send_group_msg, image_cq_wrapper
 from match.xinfa import xinfa_set, match_xinfa
 from match.server_alias import alias2server
+from text2image.txt2img import FlatererDiary
 from music.music_api import query_song_id
 from query.common_query import query_macro, query_heighten, query_daily, \
     query_gold_price, format_support_pet, query_server_pet, \
@@ -121,12 +122,19 @@ def on_message(ws, message):
         server = alias2server(server)
         send_group_msg(msg["group_id"], query_server_state(server))
 
-    if  op == "沙盘":
-        # @ 沙盘, 查询指定服务器沙盘状态, 使用: '沙盘 {服务器}'
-        server = args[-1]
-        server = alias2server(server)
-        image_ref = query_server_sandbox(server)
-        send_group_msg(msg["group_id"], f"[CQ:image,url={image_ref},id=40000]")
+    # if  op == "沙盘":
+    #     # @ 沙盘, 查询指定服务器沙盘状态, 使用: '沙盘 {服务器}'
+    #     server = args[-1]
+    #     server = alias2server(server)
+    #     image_ref = query_server_sandbox(server)
+    #     send_group_msg(msg["group_id"], f"[CQ:image,url={image_ref},id=40000]")
+
+    if op == "舔狗日记图":
+        # @ 舔狗日记图, 图片版 谁会拒绝一个深情舔狗的语录呢
+        content = flatterer_diary()
+        img = FlatererDiary(content)
+        path = img.create_blank_bg()
+        send_group_msg(msg["group_id"], image_cq_wrapper(path))
 
 
 def on_error(ws, error):

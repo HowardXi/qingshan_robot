@@ -48,6 +48,7 @@ def get_headers():
 def query_all_sandbox():
     res = get("https://www.j3sp.com/", headers=get_headers())
     html = res.content
+    print(html)
     e = HTML(html)
     servers = e.xpath('//*[@id="table"]/tbody/tr/td[7]/img//@alt')
     refs = e.xpath('//*[@id="table"]/tbody/tr/td[7]/img//@b0111ff7')
