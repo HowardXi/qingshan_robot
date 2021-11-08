@@ -101,8 +101,9 @@ def query_price(server, item):
     endpoint = "/price"
     request = get(jx3api_app + endpoint, data=json.dumps({"name": item}))
     if request.status_code == 200:
+        j = request.json()
         logger.info("query_price %s, %s. respone: %s" % (
-            server, item, request.content))
+            server, item, json.dumps(j, ensure_ascii=False)))
         data = request.json()["data"]
         msg = f"""{data["name"]}
 {data["info"]}
