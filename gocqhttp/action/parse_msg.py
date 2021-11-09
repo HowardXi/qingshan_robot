@@ -22,6 +22,8 @@ def parse_cqcode(cq_msg):
         k, v = cq_data.split("=")
         args[k] = v
     logger.info(f"parse CQ code: type={type}, args={args}")
+    if "qq" in args:
+        args["qq"] == int(args["qq"])
     return {
         "type": type,
         "args": args
