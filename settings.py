@@ -28,6 +28,7 @@ def load_settings(path="./settings.toml"):
 cfg = load_settings()
 with open("gocqhttp/config.yml", "r", encoding='utf-8') as g:
     gocq_cfg = safe_load(g.read())
+    log.info(f"gocq_cfg={gocq_cfg}")
 if cfg["base"]["debug"]:
     logger.add(sink="logs/demo.logs", level="DEBUG")
 else:
