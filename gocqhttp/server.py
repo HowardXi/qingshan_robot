@@ -23,7 +23,7 @@ from query.common_query import query_macro, query_heighten, query_daily, \
     query_gold_price, format_support_pet, query_server_pet, \
     query_personal_pet_records, query_price, query_server_state
 from query.static import query_saohua, flatterer_diary, daily_material
-from settings import cfg
+from settings import cfg, gocq_cfg
 from text2image.txt2img import FlatererDiary, remove_file
 
 
@@ -36,7 +36,7 @@ def on_message(ws, message):
             cq_obj = parse_cqcode(cq)
             logger.info(
                 f"recv msg={msg}, parse cqcode result={cq_obj}")
-            if cq_obj["type"] == "at":
+            if cq_obj["type"] == "at" and cq_obj["qq"] == gocq_cfg["account"]["uin"]:
                 path = draw_a_meme()
                 send_group_msg(msg["group_id"], image_cq_wrapper(path))
                 remove_file(path)
