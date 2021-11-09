@@ -31,11 +31,11 @@ def on_message(ws, message):
     msg = json.loads(message)
     if "message_type" not in msg or msg["message_type"] not in ("group",):
         return
-    if cqcode_num(msg):
-        for cq in msg.split(" "):
+    if cqcode_num(msg["message"]):
+        for cq in msg["message"].split(" "):
             cq_obj = parse_cqcode(cq)
             logger.info(
-                f"recv msg={msg}, parse cqcode result={cq_obj}")
+                f"recv msg={msg['message']}, parse cqcode result={cq_obj}")
             if cq_obj["type"] == "at" and cq_obj["qq"] == gocq_cfg["account"]["uin"]:
                 path = draw_a_meme()
                 send_group_msg(msg["group_id"], image_cq_wrapper(path))
