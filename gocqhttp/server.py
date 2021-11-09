@@ -36,7 +36,8 @@ def on_message(ws, message):
             cq_obj = parse_cqcode(cq)
             logger.info(
                 f"recv msg={msg['message']}, parse cqcode result={cq_obj}")
-            if cq_obj["type"] == "at" and cq_obj["qq"] == gocq_cfg["account"]["uin"]:
+            if cq_obj["type"] == "at" and \
+                    cq_obj["args"]["qq"] == gocq_cfg["account"]["uin"]:
                 path = draw_a_meme()
                 send_group_msg(msg["group_id"], image_cq_wrapper(path))
                 remove_file(path)
