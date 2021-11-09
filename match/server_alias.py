@@ -6,7 +6,9 @@ from exception import ServerNotFound
 alias_server_mapping = {
     "全部": "全部",
     "纵月": "天鹅坪",
-    "唯满侠": "唯我独尊"
+    "唯满侠": "唯我独尊",
+    "双梦": "梦江南",
+
 }
 server_alias_mapping = {v: k for k, v in alias_server_mapping.items()}
 

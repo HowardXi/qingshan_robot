@@ -48,7 +48,6 @@ def daily_material():
     if res["code"] == 0:
         data = res["data"]
         for material in data:
-            print(material)
             update_at = time.strftime("%Y-%m-%d %H:%M:%S",
                 time.strptime(material["updated_at"][0:-1], '%Y-%m-%dT%H:%M:%S.%f'))
             msg += f"""更新日期：{update_at}

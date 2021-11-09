@@ -184,7 +184,6 @@ def query_gold_price(server_name="天鹅坪"):
 def query_server_state(server):
     endpoint = "/check"
     request = get(jx3api_app + endpoint, data=json.dumps({"server": server}))
-    print (request.json())
     if request.status_code == 200:
         state = request.json()["data"]["status"]
         if state:
@@ -197,7 +196,7 @@ def query_server_state(server):
 
 def query_server_sandbox(server):
     all = query_all_sandbox()
-    print(all)
+    logger.info(all)
     return all[server]
 
 
