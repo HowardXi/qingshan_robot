@@ -54,7 +54,7 @@ def weather_msg_format(weather_json):
             msg += f"""{tip["name"]}: {tip["detail"]}
 """
 
-    print(msg)
+    return msg
 
 if __name__ == '__main__':
     weather_msg_format(query_weather(query_city_code("嘉兴")))
