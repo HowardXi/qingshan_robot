@@ -31,7 +31,8 @@ def on_message(ws, message):
     msg = json.loads(message)
     if "message_type" not in msg or msg["message_type"] not in ("group",):
         return
-    if cqcode_num(msg["message"]):
+    # if cqcode_num(msg["message"]):
+    if "[CQ" in msg["message"]:
         for cq in msg["message"].split(" "):
             cq_obj = parse_cqcode(cq)
             logger.info(
