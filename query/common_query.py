@@ -100,29 +100,29 @@ def query_server_pet(server, pet=None):
 def query_price(server, item):
     endpoint = "/price"
     request = get(jx3api_app + endpoint, data=json.dumps({"name": item}))
-    if request.status_code == 200:
-        data = request.json()["data"]
-        msg = f"""{data["name"]}
+    res = request.json()
+    if res["code"] != 200:
+        return f"本萌新咋没听说过这个东西啊(理直气壮), 要不换个名字试试"
+    data = res["data"]
+    msg = f"""{data["name"]}
 {data["info"]}
 最近{server}的成交记录:
 
 """
-        server_filter = []
-        server_alias = server2alias(server)
-        for array in data["data"]:
-            for record in array:
-                if record["server"] == server or record["server"] == server_alias:
-                    server_filter.append(record)
-                if server == "全部":
-                    server_filter.append(record)
-        if server != "全部":
-            for record in server_filter[0:6]:
-                msg += f"""时间: {record["time"]} 有人 {record["price"]} {record["sales"]}了"""
-        else:
-            for record in server_filter[0:6]:
-                msg += f"""时间: {record["time"]} 有人在{record["server"]}以 {record["price"]} 的价格{record["sales"]}了"""
+    server_filter = []
+    server_alias = server2alias(server)
+    for array in data["data"]:
+        for record in array:
+            if record["server"] == server or record["server"] == server_alias:
+                server_filter.append(record)
+            if server == "全部":
+                server_filter.append(record)
+    if server != "全部":
+        for record in server_filter[0:6]:
+            msg += f"""时间: {record["time"]} 有人 {record["price"]} {record["sales"]}了"""
     else:
-        msg = f"本萌新咋没听说过这个东西啊(理直气壮), 要不换个名字试试"
+        for record in server_filter[0:6]:
+            msg += f"""时间: {record["time"]} 有人在{record["server"]}以 {record["price"]} 的价格{record["sales"]}了"""
     return msg
 
 
@@ -206,8 +206,9 @@ if __name__ == '__main__':
     from text2image.txt2img import Text2Img
     # print(query_server_pet("天鹅坪", "果果"))
     # print(query_personal_pet_records("天鹅坪", "与晋长安"))
-    text = query_price("天鹅坪", "青盒子")
-    img = Text2Img(text)
-    print(img.draw_text())
+    text = query_price("天鹅坪", "药盒子")
+    print(text)
+    # img = Text2Img(text)
+    # print(img.draw_text())
     # print(query_server_state(alias2server("天鹅坪")))
     # print(query_server_sandbox("天鹅坪"))
