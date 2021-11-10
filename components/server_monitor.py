@@ -16,8 +16,8 @@ import json
 # from settings import cfg
 
 status2desc = {
-    1: "开服了💚",
-    0: "维护了💔"
+    1: "开服了❤ 冲~!",
+    0: "维护了💔 各位洗洗睡吧"
 }
 
 def on_message(ws, msg):
