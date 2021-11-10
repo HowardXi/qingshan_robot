@@ -6,6 +6,6 @@
 # @Time     : 2021/10/28 16:32
 # @File     : database.py
 
-from module import *
+from db.module import *
 from sqlalchemy.orm import sessionmaker
 session = sessionmaker(engine)()

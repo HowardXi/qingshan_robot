@@ -9,7 +9,7 @@
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import create_engine, Column, Integer
 
-engine = create_engine("sqlite:///qsbot.db")
+engine = create_engine("sqlite:///db/qsbot.db")
 Base = declarative_base(engine)
 
 

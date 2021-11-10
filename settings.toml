@@ -5,6 +5,9 @@ superadmin = "409356915"
 [DB]
 uri = "sqlite:///db/qsbot.db"
 
+[MONITOR]
+ws_addr = "wss://socket.nicemoe.cn"
+
 [gocqhttp]
 ws_addr = "ws://127.0.0.1:16700/"
 http_addr = "http://127.0.0.1:15700"
