@@ -29,6 +29,7 @@ from text2image.txt2img import FlatererDiary, remove_file
 
 def on_message(ws, message):
     msg = json.loads(message)
+    logger.info(f"recv msg: {msg}")
     if "message_type" not in msg or msg["message_type"] not in ("group",):
         return
     # if cqcode_num(msg["message"]):
