@@ -15,7 +15,7 @@ def cqcode_num(msg):
 def parse_cqcode(cq_msg):
     # [CQ:at,qq=10001000]
     cq_msg = cq_msg[1:-1]
-    cq, *cq_datas = cq_msg.split(",")
+    cq, *cq_datas = cq_msg.split(",", 1)
     type = cq.split(":")[-1]
     args = {}
     for cq_data in cq_datas:
