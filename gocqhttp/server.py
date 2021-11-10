@@ -187,7 +187,6 @@ def helper():
     return "\r\n".join(help_text)
 
 
-websocket.enableTrace(True)
 ws = websocket.WebSocketApp(
     cfg["gocqhttp"]["ws_addr"],
     on_message=on_message,
