@@ -102,8 +102,8 @@ def query_price(server, item):
     request = get(jx3api_app + endpoint, data=json.dumps({"name": item}))
     res = request.json()
     if res["code"] != 200:
-        return f"本萌新咋没听说过这个东西啊" \
-               f"(理直气壮), 要不换个名字试试"
+        return """本萌新咋没听说过这个东西啊
+(理直气壮), 要不换个名字试试 """
     data = res["data"]
     msg = f"""{data["name"]}
 {data["info"]}
