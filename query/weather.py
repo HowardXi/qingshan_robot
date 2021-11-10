@@ -11,6 +11,7 @@ from requests import get
 from query.utils import get_headers
 from exception import QueryError
 import xmltodict
+from loguru import logger
 
 API = "http://wthrcdn.etouch.cn/WeatherApi?citykey=%s"
 
@@ -20,11 +21,13 @@ def query_city_code(city:str):
     if city not in city2code:
         raise QueryError
     else:
+        logger.info("query_city_code: %s, %s" % (city, city2code[city]))
         return city2code[city]
 
 
 def query_weather(city_code):
     r = get(API % city_code, headers=get_headers())
+    logger.info("query weather api: %s" % (API % city_code))
     if r.status_code != 200:
         raise QueryError
     return json.dumps(xmltodict.parse(r.content), ensure_ascii=False)
