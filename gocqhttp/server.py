@@ -27,7 +27,7 @@ from settings import cfg, gocq_cfg
 from text2image.txt2img import FlatererDiary, remove_file
 from query.weather import weather_msg_format, query_weather, query_city_code
 
-
+@logger.catch
 def on_message(ws, message):
     msg = json.loads(message)
     # logger.info(f"recv msg: {msg}")
