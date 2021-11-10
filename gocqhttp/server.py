@@ -170,6 +170,7 @@ def on_message(ws, message):
             return
         try:
             text = weather_msg_format(query_weather(query_city_code(args[0])))
+            logger.info("query weather %s" % text)
             path = text2image(text)
             send_group_msg(msg["group_id"], image_cq_wrapper(path))
             remove_file(path)
