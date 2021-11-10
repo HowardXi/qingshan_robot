@@ -28,7 +28,7 @@ def on_message(ws, msg):
     elif msg["type"] == 2001:
         # send group message
         server = msg["data"]["server"]
-        status = msg["data"]["server"]
+        status = msg["data"]["status"]
         group_ids = query_group_by_server(session, server)
         msg = f"""{server}{status2desc[status]}"""
         for id in group_ids:
@@ -43,14 +43,11 @@ def on_close(ws):
     logger.info("### closed ###")
 
 
-# websocket.enableTrace(True)
-ws = websocket.WebSocketApp(
-    # cfg["MONITOR"]["ws_addr"],
-    "wss://socket.nicemoe.cn",
-    on_message=on_message,
-    on_error=on_error, on_close=on_close)
-
-ws.run_forever()
-
-# if __name__ == '__main__':
-#     print(query_roup_by_server(session, "天鹅坪"))
+def server_monitor():
+    ws = websocket.WebSocketApp(
+        # cfg["MONITOR"]["ws_addr"],
+        "wss://socket.nicemoe.cn",
+        on_message=on_message,
+        on_error=on_error, on_close=on_close)
+    logger.info("----- server monitor start -----")
+    ws.run_forever()

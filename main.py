@@ -7,9 +7,14 @@
 # @File     : main.py
 
 from loguru import logger
+from components.server_monitor import server_monitor
+from threading import Thread
 
 from gocqhttp.server import ws
 
 if __name__ == '__main__':
-    logger.info("---- server start ----")
+    t = Thread(target=server_monitor)
+    t.setDaemon(True)
+    t.start()
+    logger.info("---- main server start ----")
     ws.run_forever()
