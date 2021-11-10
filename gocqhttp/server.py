@@ -43,6 +43,7 @@ def on_message(ws, message):
                 send_group_msg(msg["group_id"], image_cq_wrapper(path))
                 remove_file(path)
                 return
+        return
     op = msg["message"].split(" ")[0]
     args = msg["message"].split(" ")[1:] or [None, ]
     logger.info(f"split message: op={op}, args={args}")

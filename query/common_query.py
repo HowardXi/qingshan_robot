@@ -189,7 +189,7 @@ def query_server_state(server):
     if request.status_code == 200:
         state = request.json()["data"]["status"]
         if state:
-            return f"""{server} 状态: 开服中💚"""
+            return f"""{server} 状态: 正常 💚"""
         else:
             return f"""{server} 状态: 维护中💔"""
     else:

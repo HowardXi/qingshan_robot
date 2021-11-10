@@ -21,11 +21,11 @@ status2desc = {
 }
 
 def on_message(ws, msg):
-    logger.info(f"recv: {msg}")
     msg = json.loads(msg)
     if msg["type"] == 2003:
         pass
     elif msg["type"] == 2001:
+        logger.info(f"recv: {msg}")
         # send group message
         server = msg["data"]["server"]
         status = msg["data"]["status"]
