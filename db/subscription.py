@@ -25,7 +25,8 @@ def add(session, server: str, group_id: int):
 
 
 def query_group_by_server(session, server: str):
-    records = session.query(Subscription).all()
+    records = session.query(Subscription).filter_by(
+        server=server).all()
     return [r.group_id for r in records]
 
 
