@@ -25,6 +25,7 @@ from query.common_query import query_macro, query_heighten, query_daily, \
 from query.static import query_saohua, flatterer_diary, daily_material
 from settings import cfg, gocq_cfg
 from text2image.txt2img import FlatererDiary, remove_file
+from query.weather import weather_msg_format, query_weather, query_city_code
 
 
 def on_message(ws, message):
@@ -155,6 +156,7 @@ def on_message(ws, message):
         send_group_msg(msg["group_id"], image_cq_wrapper(path))
         remove_file(path)
         return
+
     if op == "来张图":
         # @ 来张图, 返回一个随机的沙雕表情包
         path = draw_a_meme()
@@ -162,6 +164,19 @@ def on_message(ws, message):
         remove_file(path)
         return
 
+    if op == "天气":
+        # @ 天气, 查询天气, 比如'天气 西城'
+        if not args:
+            return
+        try:
+            text = weather_msg_format(query_weather(query_city_code(args[0])))
+            path = text2image(text)
+            send_group_msg(msg["group_id"], image_cq_wrapper(path))
+            remove_file(path)
+        except QsBaseException as e:
+            send_group_msg(msg["group_id"], str(e))
+
+        return
 
 def on_error(ws, error):
     logger.error(error)

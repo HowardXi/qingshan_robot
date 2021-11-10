@@ -18,6 +18,10 @@ class ItemNotFound(QsBaseException):
     def __str__(self):
         return "找不到这个物品, 还没听说过"
 
+class QueryError(QsBaseException):
+    def __str__(self):
+        return "没找到要查询的目标, 哭惹"
+
 if __name__ == '__main__':
     try:
         raise ServerNotFound(1234123)
