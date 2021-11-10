@@ -44,10 +44,11 @@ class Text2Img(object):
         return lines, len(lines)
 
     def draw_text(self):
-        diary_img = Image.new("RGB",
-                              (self.width, self.hangju * self.splited[1]),
-                              (255, 255, 255))
-        draw = ImageDraw.Draw(diary_img)
+        # img = Image.new("RGB",
+        #                       (self.width, self.hangju * self.splited[1]),
+        #                       (255, 255, 255))
+        img = Image.open("text2image/gufengbg.png")
+        draw = ImageDraw.Draw(img)
         # 左上角开始
         x, y = 10, 10
         lines, lens = self.splited
@@ -55,7 +56,9 @@ class Text2Img(object):
             draw.text((x, y), line, fill=(0, 0, 0), font=self.font)
             y += self.hangju
         file_path = "image_cache/%s.png" % uuid4().hex
-        diary_img.save(file_path)
+        cut_box = (0, 0, self.width - 2, y)
+        img = img.crop(cut_box)
+        img.save(file_path)
         return abspath(file_path)
 
 
@@ -93,7 +96,7 @@ class FlatererDiary(object):
                 lines.append("".join(line))
                 line = ""
                 line_width = 0
-        lines.append(self.text[char_num: -1])
+        lines.append(self.text[char_num:])
         return lines, len(lines)
 
     def draw_text(self, height):

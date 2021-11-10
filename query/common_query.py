@@ -105,6 +105,7 @@ def query_price(server, item):
         msg = f"""{data["name"]}
 {data["info"]}
 最近{server}的成交记录:
+
 """
         server_filter = []
         server_alias = server2alias(server)
@@ -116,10 +117,10 @@ def query_price(server, item):
                     server_filter.append(record)
         if server != "全部":
             for record in server_filter[0:6]:
-                msg += f"""时间: {record["time"]} 有人 {record["price"]} {record["sales"]}了\n"""
+                msg += f"""时间: {record["time"]} 有人 {record["price"]} {record["sales"]}了"""
         else:
             for record in server_filter[0:6]:
-                msg += f"""时间: {record["time"]} 有人在{record["server"]}以 {record["price"]} 的价格{record["sales"]}了\n"""
+                msg += f"""时间: {record["time"]} 有人在{record["server"]}以 {record["price"]} 的价格{record["sales"]}了"""
     else:
         msg = f"本萌新咋没听说过这个东西啊(理直气壮), 要不换个名字试试"
     return msg
