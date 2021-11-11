@@ -120,10 +120,10 @@ def query_price(server, item):
                 server_filter.append(record)
     if server != "全部":
         for record in server_filter[0:6]:
-            msg += f"""时间: {record["time"]} 有人 {record["price"]} {record["sales"]}了"""
+            msg += f"""时间: {record["time"]} 有人 {record["price"]} {record["sales"]}了\n"""
     else:
         for record in server_filter[0:6]:
-            msg += f"""时间: {record["time"]} 有人在{record["server"]}以 {record["price"]} 的价格{record["sales"]}了"""
+            msg += f"""时间: {record["time"]} 有人在{record["server"]}以 {record["price"]} 的价格{record["sales"]}了\n"""
     return msg
 
 
