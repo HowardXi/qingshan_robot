@@ -21,7 +21,7 @@ class Text2Img(object):
         logger.info("convert text to image, text: %s" % text)
         self.text = text
         self.font_size = 14
-        self.width = 250
+        self.width = 300
         self.font = ImageFont.truetype("text2image/huakangshaonv.ttf",
                                        self.font_size)
         self.hangju = self.font_size + 5
@@ -47,7 +47,7 @@ class Text2Img(object):
         # img = Image.new("RGB",
         #                       (self.width, self.hangju * self.splited[1]),
         #                       (255, 255, 255))
-        img = Image.open("text2image/gufengbg.png")
+        img = Image.open("text2image/wenzibeijing.png")
         draw = ImageDraw.Draw(img)
         # 左上角开始
         x, y = 10, 10
