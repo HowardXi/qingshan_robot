@@ -80,7 +80,9 @@ def on_message(ws, message):
         return
     if op == "日常":
         # @ 日常, 查询今天的日常
-        send_group_msg(msg["group_id"], query_daily(args[-1]))
+        path = text2image(query_daily(args[-1]))
+        send_group_msg(msg["group_id"], image_cq_wrapper(path))
+        remove_file(path)
         return
     if op == "金价":
         # @ 金价, 查询这会儿的金价(半小时更新)
