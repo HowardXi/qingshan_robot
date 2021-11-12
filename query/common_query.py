@@ -118,11 +118,13 @@ def query_price(server, item):
                 server_filter.append(record)
             if server == "全部":
                 server_filter.append(record)
+    records = server_filter[0:6] # 超过6条记录就截取, 不然太长了
+    records.reverse()
     if server != "全部":
-        for record in server_filter[0:6]:
+        for record in records:
             msg += f"""时间: {record["time"]} 有人 {record["price"]} {record["sales"]}了\n"""
     else:
-        for record in server_filter[0:6]:
+        for record in records:
             msg += f"""时间: {record["time"]} 有人在{record["server"]}以 {record["price"]} 的价格{record["sales"]}了\n"""
     return msg
 
