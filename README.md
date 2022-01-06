@@ -1,3 +1,4 @@
 # qsbot
 QingShan qqbot
-自用qq聊天机器人
+just for fun
+依赖gocq-http
